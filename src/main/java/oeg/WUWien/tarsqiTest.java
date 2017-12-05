@@ -151,10 +151,10 @@ public class tarsqiTest {
             fin = Integer.parseInt(m2.group(4));
             
             // Whats in that substring
-            CharSequence target = copyOnlyText.subSequence(ini, fin);
+            String target = copyOnlyText.substring(ini, fin);
             String workingCopy = copyOnlyText.substring(ini);
             String workingCopy2 = workingCopy;
-            workingCopy = workingCopy.replace(target, tagIni + target + cierreTimex3);
+            workingCopy = workingCopy.replaceFirst(target, tagIni + target + cierreTimex3);
             onlyText = onlyText.replace(workingCopy2, workingCopy);
 //            offset = offset + offsetTIMEX + tagIni.length();
         }               
