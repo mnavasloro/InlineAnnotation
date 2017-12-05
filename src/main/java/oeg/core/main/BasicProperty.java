@@ -14,7 +14,7 @@ public class BasicProperty {
     //Logger
     private static Logger logger = LogManager.getLogger(BasicProperty.class);
 
-    private String root; //LEGALPROY ENVIRONMENT VARIABLE 
+    private String root; //INLINEANNOTATION ENVIRONMENT VARIABLE 
 
     //propiedades
     public Properties prop = new Properties();
@@ -66,8 +66,8 @@ public class BasicProperty {
                 workspace = "workspace";
             }
             File f = new File(workspace);
-            workspace = workspace.replace("%LEGALPROY%", root);
-            workspace = workspace.replace("$LEGALPROY", root);
+            workspace = workspace.replace("%INLINEANNOTATION%", root);
+            workspace = workspace.replace("$INLINEANNOTATION", root);
             setWorkspace(workspace);
         }
 
@@ -76,7 +76,7 @@ public class BasicProperty {
 
     /**
      * Obtiene Y GENERA SI ES NECESARIO la carpeta de workspace Es inteligente y
-     * reemplaza la variable de entorno %LEGALPROY% si es necesario
+     * reemplaza la variable de entorno %INLINEANNOTATION% si es necesario
      *
      * @return Obtiene el valor de la carpeta de workspace
      */
@@ -84,13 +84,13 @@ public class BasicProperty {
 
         String workspacefolder = prop.getProperty("workspace");
         if (workspacefolder == null) {
-            workspacefolder = "%LEGALPROY%/workspace";
-            workspace = "%LEGALPROY%/workspace";
+            workspacefolder = "%INLINEANNOTATION%/workspace";
+            workspace = "%INLINEANNOTATION%/workspace";
         }
-        workspacefolder = workspacefolder.replace("%LEGALPROY%", root);
-        workspacefolder = workspacefolder.replace("$LEGALPROY", root);
-        workspace = workspace.replace("%LEGALPROY%", root);
-        workspace = workspace.replace("$LEGALPROY", root);
+        workspacefolder = workspacefolder.replace("%INLINEANNOTATION%", root);
+        workspacefolder = workspacefolder.replace("$INLINEANNOTATION", root);
+        workspace = workspace.replace("%INLINEANNOTATION%", root);
+        workspace = workspace.replace("$INLINEANNOTATION", root);
 
         File file = new File(workspacefolder);
         if (!file.exists()) {

@@ -10,14 +10,14 @@ public class Sistema {
 
 
     /**
-     * Se obtiene la variable de entorno LEGALPROY usando System.getenv
+     * Se obtiene la variable de entorno INLINEANNOTATION usando System.getenv
      * Y luego se reemplaza en una cadena ya sea en Linux ya sea en Unix
      */
     public static String env(String sin)
     {
         String sout="";
-        sout = sin.replace("%LEGALPROY%", Core.getRootFolderSimple());
-        sout = sout.replace("$LEGALPROY", Core.getRootFolderSimple());
+        sout = sin.replace("%INLINEANNOTATION%", Core.getRootFolderSimple());
+        sout = sout.replace("$INLINEANNOTATION", Core.getRootFolderSimple());
         return sout;
     }
     

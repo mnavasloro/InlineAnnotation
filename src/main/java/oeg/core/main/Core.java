@@ -42,7 +42,7 @@ public class Core {
     public static long initTime = System.currentTimeMillis();
 
     /**
-     * Inicialización del core - comprueba que esté la variable LEGALPROY
+     * Inicialización del core - comprueba que esté la variable INLINEANNOTATION
      *
      * @param logs false si no se desea ningún log, true si se desean logs (en
      * pantalla info y debug en archivo).
@@ -77,7 +77,7 @@ public class Core {
     }    
 
     /**
-     * Inicialización del core - comprueba que esté la variable LEGALPROY
+     * Inicialización del core - comprueba que esté la variable INLINEANNOTATION
      *
      * @param logs false si no se desea ningún log, true si se desean logs (en
      * pantalla info y debug en archivo).
@@ -89,19 +89,19 @@ public class Core {
     }
 
     /**
-     * Inicialización del core - comprueba que esté la variable LEGALPROY
+     * Inicialización del core - comprueba que esté la variable INLINEANNOTATION
      */
     public static void init() /*throws Exception*/ {
-        String home = System.getenv("LEGALPROY");
+        String home = System.getenv("INLINEANNOTATION");
         if (home == null) {
-            System.out.println("Please set the LEGALPROY environment variable to the root the of the project");
+            System.out.println("Please set the INLINEANNOTATION environment variable to the root the of the project");
             if (SystemUtils.IS_OS_WINDOWS) {
-                System.out.println("You can simply type in a command line SETX LEGALPROY your_root_folder");
+                System.out.println("You can simply type in a command line SETX INLINEANNOTATION your_root_folder");
             }
             if (SystemUtils.IS_OS_LINUX) {
-                System.out.println("You can simply type in a command line setenv LEGALPROY your_root_folder");
+                System.out.println("You can simply type in a command line setenv INLINEANNOTATION your_root_folder");
             }
-            System.err.println("LEGALPROY environment variable is required");
+            System.err.println("INLINEANNOTATION environment variable is required");
             System.exit(1);
         }
     }
@@ -112,15 +112,15 @@ public class Core {
      * @throws Exception
      */
     public static String getRootFolder() throws Exception {
-        String home = System.getenv("LEGALPROY");
+        String home = System.getenv("INLINEANNOTATION");
         if (home == null) {
-            throw new Exception("LEGALPROY environment variable is required");
+            throw new Exception("INLINEANNOTATION environment variable is required");
         }
         return home;
     }
 
     public static String getRootFolderSimple() {
-        String home = System.getenv("LEGALPROY");
+        String home = System.getenv("INLINEANNOTATION");
         if (home == null) {
             return ".";
         }
@@ -202,11 +202,11 @@ public class Core {
             
             //VERSION
             if (cli.hasOption("version")) {
-                res.append("LEGALPROY suite version ").append(InformacionSistema.getVersion()).append("\n");
+                res.append("INLINEANNOTATION suite version ").append(InformacionSistema.getVersion()).append("\n");
                 res.append("Ultima compilacion: ").append(InformacionSistema.getCompileTimeStamp(Main.class)).append(" en ").append(System.getenv("COMPUTERNAME")).append("\n");
                 res.append("(C) 2017 Ontology Engineering Group (Universidad Politécnica de Madrid)").append("\n");
                 res.append(InformacionSistema.getSystemInfo());
-                res.append("Home folder:" + System.getenv("LEGALPROY"));
+                res.append("Home folder:" + System.getenv("INLINEANNOTATION"));
                 return res.toString();
             }
 
@@ -314,7 +314,7 @@ public class Core {
     
     public static void initLoggerDebug()
     {
-        initLoggerDebug("LEGALPROY.log");
+        initLoggerDebug("INLINEANNOTATION.log");
     }
     
 
@@ -380,14 +380,14 @@ public class Core {
     public static void initDefaultConfig() {
         try {
             //LO PRIMERO BUSCA EL ARCHIVO DE CONFIGURACIÓN EN LA CARPETA 
-            File f5 = new File("./LEGALPROY.properties");
-//            File f5 = new File("./LEGALPROY.properties");
+            File f5 = new File("./INLINEANNOTATION.properties");
+//            File f5 = new File("./INLINEANNOTATION.properties");
             if (!f5.exists()) {
-                //LO SEGUNDO SE BUSCA EN LA RAÍZ DEL LEGALPROY
+                //LO SEGUNDO SE BUSCA EN LA RAÍZ DEL INLINEANNOTATION
                 String root = Core.getRootFolder();
-                f5 = new File(root + "/LEGALPROY.properties");
+                f5 = new File(root + "/INLINEANNOTATION.properties");
                 if (!f5.exists()) {
-                    logger.warn("No properties specified (neither in the local folder nor in the LEGALPROY folder). Default parameters have been taken.");
+                    logger.warn("No properties specified (neither in the local folder nor in the INLINEANNOTATION folder). Default parameters have been taken.");
                     properties = new BasicProperty();
                 }
             }
@@ -405,13 +405,13 @@ public class Core {
      */
     public static String getConfigFile() {
         //LO PRIMERO BUSCA EL ARCHIVO DE CONFIGURACIÓN EN LA CARPETA 
-        File f5 = new File("./LEGALPROY.properties");
+        File f5 = new File("./INLINEANNOTATION.properties");
         if (f5.exists()) {
             return f5.getAbsolutePath();
         }
-        //LO SEGUNDO SE BUSCA EN LA RAÍZ DEL LEGALPROY
+        //LO SEGUNDO SE BUSCA EN LA RAÍZ DEL INLINEANNOTATION
         String root = Core.getRootFolderSimple();
-        f5 = new File(root + "/LEGALPROY.properties");
+        f5 = new File(root + "/INLINEANNOTATION.properties");
         if (f5.exists()) {
             return f5.getAbsolutePath();
         }
@@ -425,7 +425,7 @@ public class Core {
         String path = propertyFileLocation;
         File f4 = new File(path);
         if (!f4.exists()) {
-            logger.warn("the property file does not exist. searching in the LEGALPROY root folder");
+            logger.warn("the property file does not exist. searching in the INLINEANNOTATION root folder");
             String root = Core.getRootFolderSimple();
             path = root + "/" + propertyFileLocation;
             f4 = new File(path);
