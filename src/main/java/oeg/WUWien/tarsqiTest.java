@@ -30,23 +30,24 @@ public class tarsqiTest {
     public static void main(String[] args){
         try{
  
-            
-            String fil = args[0];
+            String fil = "C:\\Users\\María\\Desktop\\ECJ";
+//            String fil = args[0];
                     
-            File fich = new File(fil);
-            
+            File fich = new File(fil);            
             
             cleanDocs(fich);
             
-            for(File f : fich.listFiles()){
+            File[] listedFiles = fich.listFiles();
+            
+            for(File f : listedFiles){
                 
                 String extension = "text";
                 if(f.getName().substring(f.getName().length()-3, f.getName().length()).equals("xml"))
                     extension = "xml";
                 
                 Process p;
-                System.out.println("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
-                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
+                System.out.println("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " \"" + f.getAbsolutePath() + "\" \"" + f.getAbsolutePath() + ".output.xml\" --loglevel 4");
+                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " \"" + f.getAbsolutePath() + "\" \"" + f.getAbsolutePath() + ".output.xml\" --loglevel 4");
 //                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
             
             BufferedReader stdInput = new BufferedReader(new 
@@ -86,6 +87,8 @@ public class tarsqiTest {
                 String cadenaNormalize = Normalizer.normalize(original, Normalizer.Form.NFD);  
                 String cadenaSinAcentos = cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
                 
+//                cadenaSinAcentos = cadenaSinAcentos.replaceAll(" & ", " &amp; ");
+                
                 try(  PrintWriter out = new PrintWriter(f.getAbsolutePath())  ){
                     out.println(cadenaSinAcentos);
                 }
@@ -99,6 +102,10 @@ public class tarsqiTest {
     public static boolean outputAsInlineTags(File f) throws IOException {
         String original;
         original = FileUtils.readFileToString(f, "UTF-8");
+        
+        if(original.contains(" &amp; ")){ // We might fond amp values,  from the cleaning process, we restore them
+            original = original.replaceAll(" &amp; ", " & ");
+        }
         String copy = original;
         String timexRegex = "((<TIMEX3 )begin=\\\"(\\d+)\\\" end=\\\"(\\d+)\\\" origin=\\\"GUTIME\\\" ([^(\\/>)]+) \\/>(\\n))";
         String cierreTimex3 = "</TIMEX3>";
@@ -154,6 +161,10 @@ public class tarsqiTest {
             String target = copyOnlyText.substring(ini, fin);
             String workingCopy = copyOnlyText.substring(ini);
             String workingCopy2 = workingCopy;
+//            if(target.contains("(")){
+//                target = target.replaceAll("\\(", "\\\\(");
+//            }
+            System.out.println(target);
             workingCopy = workingCopy.replaceFirst(target, tagIni + target + cierreTimex3);
             onlyText = onlyText.replace(workingCopy2, workingCopy);
 //            offset = offset + offsetTIMEX + tagIni.length();
