@@ -30,8 +30,7 @@ public class tarsqiTest {
     public static void main(String[] args){
         try{
  
-            String fil = "C:\\Users\\María\\Desktop\\ECJ";
-//            String fil = args[0];
+            String fil = args[0];
                     
             File fich = new File(fil);            
             
@@ -46,8 +45,8 @@ public class tarsqiTest {
                     extension = "xml";
                 
                 Process p;
-                System.out.println("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " \"" + f.getAbsolutePath() + "\" \"" + f.getAbsolutePath() + ".output.xml\" --loglevel 4");
-                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " \"" + f.getAbsolutePath() + "\" \"" + f.getAbsolutePath() + ".output.xml\" --loglevel 4");
+                System.out.println("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
+                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
 //                p = Runtime.getRuntime().exec("python " + Core.getRootFolder() + "\\lib\\ttk-2.1.0\\tarsqi.py  --pipeline PREPROCESSOR,GUTIME --source " + extension + " " + f.getAbsolutePath() + " " + f.getAbsolutePath() + ".output.xml --loglevel 4");
             
             BufferedReader stdInput = new BufferedReader(new 
@@ -87,7 +86,7 @@ public class tarsqiTest {
                 String cadenaNormalize = Normalizer.normalize(original, Normalizer.Form.NFD);  
                 String cadenaSinAcentos = cadenaNormalize.replaceAll("[^\\p{ASCII}]", "");
                 
-//                cadenaSinAcentos = cadenaSinAcentos.replaceAll(" & ", " &amp; ");
+                cadenaSinAcentos = cadenaSinAcentos.replaceAll(" & ", " &amp; ");
                 
                 try(  PrintWriter out = new PrintWriter(f.getAbsolutePath())  ){
                     out.println(cadenaSinAcentos);
@@ -164,7 +163,7 @@ public class tarsqiTest {
 //            if(target.contains("(")){
 //                target = target.replaceAll("\\(", "\\\\(");
 //            }
-            System.out.println(target);
+//            System.out.println(target);
             workingCopy = workingCopy.replaceFirst(target, tagIni + target + cierreTimex3);
             onlyText = onlyText.replace(workingCopy2, workingCopy);
 //            offset = offset + offsetTIMEX + tagIni.length();

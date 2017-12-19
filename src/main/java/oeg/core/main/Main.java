@@ -8,6 +8,6 @@ public class Main {
     
     public static void main(String[] args) throws Exception {
         Core.init();
-        System.out.println("TEMPORAL ANNOTATION WITH TARSQI.");
+        System.out.println("Bienvenido a INLINEANNOTATION.");
     }
 } 
